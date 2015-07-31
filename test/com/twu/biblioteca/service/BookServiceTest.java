@@ -20,12 +20,10 @@ public class BookServiceTest {
 
     @Test
     public void should_be_able_to_get_book_list() {
-        BookService bookService = new BookService();
-
         List<Book> bookList = bookService.listItems();
 
         assertFalse(bookList.isEmpty());
-        Book book = bookList.get(1);
+        Book book = bookList.get(0);
         assertEquals(book.getId(), "B0001");
         assertEquals(book.getTitle(), "Head First Java");
         assertEquals(book.getAuthor(), "Kathy Sierra & Bates");
@@ -35,8 +33,20 @@ public class BookServiceTest {
 
     @Test
     public void should_be_able_to_checkout_book() {
-
-        String message = bookService.checkoutItem("B0001", "R0001");
+        String message = bookService.checkoutItem("B0002", "R0001");
         assertEquals(message, "Thank you! Enjoy the book");
+    }
+
+    @Test
+    public void should_not_checkout_book_when_book_is_already_checked_out() {
+        bookService.checkoutItem("B0001", "R0001");
+        String message = bookService.checkoutItem("B0001", "R0002");
+        assertEquals(message, "That book is not available.");
+    }
+
+    @Test
+    public void should_not_checkout_book_when_book_not_exists() throws Exception {
+        String message = bookService.checkoutItem("B000X", "R0001");
+        assertEquals(message, "That book is not available.");
     }
 }

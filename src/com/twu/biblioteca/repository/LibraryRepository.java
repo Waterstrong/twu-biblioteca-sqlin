@@ -11,6 +11,7 @@ public class LibraryRepository {
         {
             put("B0001", new Book("B0001", "Head First Java", "Kathy Sierra & Bates", "2005", "O'Reilly Media, Inc"));
             put("B0002", new Book("B0002", "Test Driven Development: By Example", "Kent Beck", "2002", "Addison-Wesley Professional"));
+            put("B0003", new Book("B0003", "Refactoring: Improving the Design of Existing Code", "Martin Fowler & Kent Beck & John Brant & William Opdyke & Don Roberts", "1999", "Addison-Wesley Professional"));
         }
     };
     private static Map<String, String> checkoutBooks = new HashMap<String, String>();
