@@ -27,4 +27,8 @@ public class LibraryRepository {
     public static Map<String, String> getCheckoutBooks() {
         return checkoutBooks;
     }
+
+    public static void removeCheckoutBook(String bookId) {
+        checkoutBooks.remove(bookId);
+    }
 }

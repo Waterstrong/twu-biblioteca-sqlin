@@ -1,7 +1,6 @@
 package com.twu.biblioteca.service;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -11,6 +10,9 @@ import com.twu.biblioteca.domain.Book;
 import com.twu.biblioteca.repository.LibraryRepository;
 
 public class BookService {
+
+    private final String SUCCESSFUL_CHECKOUT_MESSAGE = "Thank you! Enjoy the book";
+    private final String UNSUCCESSFUL_CHECKOUT_MESSAGE = "That book is not available.";
 
     public List<Book> listItems() {
         Map<String, Book> books = LibraryRepository.listBooks();
@@ -35,11 +37,11 @@ public class BookService {
     }
 
     public String checkoutItem(String bookId, String readerId) {
-        String message = "Thank you! Enjoy the book";
+        String message = SUCCESSFUL_CHECKOUT_MESSAGE;
         if (isExistBook(bookId) && !isCheckedOut(bookId)) {
             LibraryRepository.saveCheckoutBook(bookId, readerId);
         } else {
-            message = "That book is not available.";
+            message = UNSUCCESSFUL_CHECKOUT_MESSAGE;
         }
         return message;
     }
@@ -50,5 +52,15 @@ public class BookService {
 
     private boolean isCheckedOut(String bookId) {
         return LibraryRepository.getCheckoutBooks().containsKey(bookId);
+    }
+
+    public String returnBook(String bookId) {
+        String message = "Thank you for returning the book.";
+        if(LibraryRepository.getCheckoutBooks().containsKey(bookId)) {
+            LibraryRepository.removeCheckoutBook(bookId);
+        } else {
+            message = "That is not a valid book to return.";
+        }
+        return message;
     }
 }
