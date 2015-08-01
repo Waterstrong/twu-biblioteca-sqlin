@@ -28,7 +28,7 @@ public class LibraryRepository {
         return checkoutBooks;
     }
 
-    public static void removeCheckoutBook(String bookId) {
+    public static void returnCheckedBook(String bookId) {
         checkoutBooks.remove(bookId);
     }
 }

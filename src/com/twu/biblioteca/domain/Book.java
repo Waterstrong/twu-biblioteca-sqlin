@@ -34,4 +34,13 @@ public class Book {
     public String getPress() {
         return press;
     }
+
+    public String getColumnHeader() {
+        return "Book ID         Title         Author     Published Year      Press\n" +
+                "------------------------------------------------------------------";
+    }
+
+    public String getColumnContent() {
+        return getId() + "    " + getTitle() + "    " + getAuthor() + "    " + getPublishedYear() + "    " + getPress();
+    }
 }

@@ -13,6 +13,8 @@ public class BookService {
 
     private final String SUCCESSFUL_CHECKOUT_MESSAGE = "Thank you! Enjoy the book";
     private final String UNSUCCESSFUL_CHECKOUT_MESSAGE = "That book is not available.";
+    private final String SUCCESSFUL_RETURN_MESSAGE = "Thank you for returning the book.";
+    private final String UNSUCCESSFUL_RETURN_MESSAGE = "That is not a valid book to return.";
 
     public List<Book> listItems() {
         Map<String, Book> books = LibraryRepository.listBooks();
@@ -54,12 +56,12 @@ public class BookService {
         return LibraryRepository.getCheckoutBooks().containsKey(bookId);
     }
 
-    public String returnBook(String bookId) {
-        String message = "Thank you for returning the book.";
+    public String returnCheckedItem(String bookId) {
+        String message = SUCCESSFUL_RETURN_MESSAGE;
         if(LibraryRepository.getCheckoutBooks().containsKey(bookId)) {
-            LibraryRepository.removeCheckoutBook(bookId);
+            LibraryRepository.returnCheckedBook(bookId);
         } else {
-            message = "That is not a valid book to return.";
+            message = UNSUCCESSFUL_RETURN_MESSAGE;
         }
         return message;
     }
