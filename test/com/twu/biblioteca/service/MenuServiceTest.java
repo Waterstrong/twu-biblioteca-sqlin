@@ -7,32 +7,32 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-import com.twu.biblioteca.enumeration.MainMenu;
-import com.twu.biblioteca.enumeration.SubMenu;
+import com.twu.biblioteca.domain.Menu;
+import com.twu.biblioteca.enumeration.Action;
 
 public class MenuServiceTest {
 
     private MenuService menuService;
+    private Menu listBooksMenu;
+    private Menu quitMenu;
 
     @Before
     public void setUp() {
         menuService = new MenuService();
-        menuService.registerMainMenu(MainMenu.LIST_BOOKS, new BookService());
+        listBooksMenu = new Menu("List Books", Action.LIST_ITEMS);
+        quitMenu = new Menu("Quit", Action.QUIT);
+
+        menuService.registerMainMenu(listBooksMenu, new BookService());
+        menuService.registerMainMenu(quitMenu, null);
     }
 
     @Test
     public void should_be_able_to_get_main_menu() {
-        List<MainMenu> menus = menuService.listMainMenus();
+        List<Menu> menus = menuService.listMainMenus();
 
         assertFalse(menus.isEmpty());
-        assertTrue(menus.contains(MainMenu.LIST_BOOKS));
+        assertTrue(menus.contains(listBooksMenu));
+        assertTrue(menus.contains(quitMenu));
     }
 
-    @Test
-    public void should_be_able_to_get_sub_menu() {
-        List<SubMenu> subMenus = menuService.listSubMenu(MainMenu.LIST_BOOKS);
-        assertFalse(subMenus.isEmpty());
-        assertTrue(subMenus.contains(SubMenu.CHECKOUT_ITEM));
-        assertTrue(subMenus.contains(SubMenu.RETURN_ITEM));
-    }
 }
