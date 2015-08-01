@@ -16,7 +16,7 @@ public class BookTest {
 
     @Test
     public void should_be_able_to_get_book_column_info() {
-        String columnHeader = book.getColumnHeader();
+        String columnHeader = Book.getColumnHeader();
 
         assertEquals(columnHeader, "Book ID         Title         Author     Published Year      Press\n" +
                 "------------------------------------------------------------------");

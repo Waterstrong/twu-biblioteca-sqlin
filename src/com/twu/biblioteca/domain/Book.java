@@ -35,7 +35,7 @@ public class Book {
         return press;
     }
 
-    public String getColumnHeader() {
+    public static String getColumnHeader() {
         return "Book ID         Title         Author     Published Year      Press\n" +
                 "------------------------------------------------------------------";
     }

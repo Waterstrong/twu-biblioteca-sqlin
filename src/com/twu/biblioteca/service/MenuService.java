@@ -1,7 +1,7 @@
 package com.twu.biblioteca.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,7 +9,7 @@ import com.twu.biblioteca.domain.Menu;
 
 public class MenuService {
 
-    private Map<Menu, ItemService> menus = new HashMap<Menu, ItemService>();
+    private Map<Menu, ItemService> menus = new LinkedHashMap<Menu, ItemService>();
 
     public List<Menu> listMainMenus() {
         return new ArrayList<Menu>(menus.keySet());
@@ -19,4 +19,7 @@ public class MenuService {
         menus.put(menu, service);
     }
 
+    public ItemService getItemService(Menu menu) {
+        return menus.get(menu);
+    }
 }
