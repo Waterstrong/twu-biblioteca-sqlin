@@ -14,7 +14,7 @@ public class BookServiceTest {
     private ItemService bookService;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         bookService = new BookService();
     }
 
