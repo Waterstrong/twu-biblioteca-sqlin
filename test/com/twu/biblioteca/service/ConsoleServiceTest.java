@@ -41,17 +41,23 @@ public class ConsoleServiceTest {
     }
 
     @Test
+    public void should_be_able_to_show_bye_message() throws Exception {
+        consoleService.sayBye();
+        assertEquals(outContent.toString(), "\n===============Thank you for using the Biblioteca! Bye!===============\n\n");
+    }
+
+    @Test
     public void should_be_able_to_print_specified_error_message() {
         String message = "This is an error message.";
         consoleService.printError(message);
-        assertEquals(errContent.toString(), message + "\n\n");
+        assertEquals(errContent.toString(), message + "\n");
     }
 
     @Test
     public void should_be_able_to_print_specified_message() throws Exception {
         String message = "This is a message.";
         consoleService.printMessage(message);
-        assertEquals(outContent.toString(), message + "\n\n");
+        assertEquals(outContent.toString(), message + "\n");
     }
 
     @Test

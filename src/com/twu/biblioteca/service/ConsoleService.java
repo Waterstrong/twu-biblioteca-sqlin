@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 
-import com.sun.tools.javac.util.Convert;
 import com.twu.biblioteca.domain.Book;
 import com.twu.biblioteca.domain.Menu;
 
@@ -21,8 +20,12 @@ public class ConsoleService {
         System.out.println("===============Welcome to the Biblioteca!===============\n");
     }
 
+    public static void sayBye() {
+        System.out.println("\n===============Thank you for using the Biblioteca! Bye!===============\n");
+    }
+
     public void printError(String error) {
-        System.err.println(error + "\n");
+        System.err.println(error);
     }
 
     public int chooseOption() {
@@ -65,7 +68,7 @@ public class ConsoleService {
     }
 
     public void printMessage(String message) {
-        System.out.println(message + "\n");
+        System.out.println(message);
     }
 
     public static void printBookList(List<Book> books) {
