@@ -11,7 +11,7 @@ import com.twu.biblioteca.domain.Book;
 
 public class BookServiceTest {
 
-    private BookService bookService;
+    private ItemService bookService;
 
     @Before
     public void setUp() throws Exception {

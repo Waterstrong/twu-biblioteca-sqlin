@@ -5,15 +5,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.twu.biblioteca.enumeration.MainMenu;
+
 public class MenuService {
 
-    private Map<String, BookService> mainMenus = new HashMap<String, BookService>();
+    private Map<MainMenu, ItemService> mainMenus = new HashMap<MainMenu, ItemService>();
 
-    public List<String> listMainMenus() {
-        return new ArrayList<String>(mainMenus.keySet());
+    public List<MainMenu> listMainMenus() {
+        return new ArrayList<MainMenu>(mainMenus.keySet());
     }
 
-    public void attachMainMenu(String menuTitle, BookService service) {
+    public void registerMainMenu(MainMenu menuTitle, ItemService service) {
         mainMenus.put(menuTitle, service);
     }
 }

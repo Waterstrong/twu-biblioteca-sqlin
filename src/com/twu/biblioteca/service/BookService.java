@@ -9,13 +9,14 @@ import java.util.Map;
 import com.twu.biblioteca.domain.Book;
 import com.twu.biblioteca.repository.LibraryRepository;
 
-public class BookService {
+public class BookService implements ItemService {
 
     private final String SUCCESSFUL_CHECKOUT_MESSAGE = "Thank you! Enjoy the book";
     private final String UNSUCCESSFUL_CHECKOUT_MESSAGE = "That book is not available.";
     private final String SUCCESSFUL_RETURN_MESSAGE = "Thank you for returning the book.";
     private final String UNSUCCESSFUL_RETURN_MESSAGE = "That is not a valid book to return.";
 
+    @Override
     public List<Book> listItems() {
         Map<String, Book> books = LibraryRepository.listBooks();
         Map<String, String> checkoutBooks = LibraryRepository.getCheckoutBooks();
@@ -38,6 +39,7 @@ public class BookService {
         });
     }
 
+    @Override
     public String checkoutItem(String bookId, String readerId) {
         String message = SUCCESSFUL_CHECKOUT_MESSAGE;
         if (isExistBook(bookId) && !isCheckedOut(bookId)) {
@@ -56,6 +58,7 @@ public class BookService {
         return LibraryRepository.getCheckoutBooks().containsKey(bookId);
     }
 
+    @Override
     public String returnCheckedItem(String bookId) {
         String message = SUCCESSFUL_RETURN_MESSAGE;
         if(LibraryRepository.getCheckoutBooks().containsKey(bookId)) {
