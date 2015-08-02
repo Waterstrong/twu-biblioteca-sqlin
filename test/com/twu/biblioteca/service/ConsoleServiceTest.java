@@ -1,6 +1,7 @@
 package com.twu.biblioteca.service;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -20,12 +21,14 @@ public class ConsoleServiceTest {
     private ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private ByteArrayOutputStream errContent = new ByteArrayOutputStream();
     private ConsoleService consoleService;
+    private ConsoleServiceMock consoleServiceMock;
 
     @Before
     public void setUp() {
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
         consoleService = new ConsoleService();
+        consoleServiceMock = new ConsoleServiceMock();
     }
 
     @After
@@ -61,10 +64,23 @@ public class ConsoleServiceTest {
     }
 
     @Test
-    public void should_be_able_to_show_tips_for_choosing_option() throws IOException {
-        consoleService.getBufferedReader().close();
-        int option = consoleService.chooseOption();
-        assertEquals(outContent.toString(), "Please choose an option: ");
+    public void should_be_able_to_choose_an_option() throws IOException {
+        consoleServiceMock.setInputBuffer("1");
+        int option = consoleServiceMock.chooseOption();
+        assertEquals(option, 1);
+    }
+
+    @Test
+    public void should_not_get_an_valid_option_when_input_is_null() throws Exception {
+        consoleServiceMock.setInputBuffer(null);
+        int option = consoleServiceMock.chooseOption();
+        assertEquals(option, 0);
+    }
+
+    @Test
+    public void should_not_get_an_valid_option_when_input_is_not_integer() throws Exception {
+        consoleServiceMock.setInputBuffer("buffer");
+        int option = consoleServiceMock.chooseOption();
         assertEquals(option, 0);
     }
 
@@ -80,6 +96,15 @@ public class ConsoleServiceTest {
     }
 
     @Test
+    public void should_be_able_to_input_nothing_with_prompt() throws Exception {
+        String prompt = "please input: ";
+        consoleService.getBufferedReader().close();
+        String input = consoleService.inputWithPrompt(prompt);
+        assertEquals(outContent.toString(), prompt);
+        assertNull(input);
+    }
+
+    @Test
     public void should_be_able_to_print_book_list() throws Exception {
         List<Book> books = new ArrayList<Book>(Arrays.asList(
                 new Book("123", "hello", "water", "2015", "press"),
@@ -91,5 +116,16 @@ public class ConsoleServiceTest {
                 "123    hello    water    2015    press\n" +
                 "456    haha    lin    2015    bbc\n";
         assertEquals(outContent.toString(), result);
+    }
+
+    private class ConsoleServiceMock extends ConsoleService {
+        private String inputBuffer;
+        public String inputWithPrompt(String prompt){
+            return inputBuffer;
+        }
+
+        public void setInputBuffer(String inputBuffer) {
+            this.inputBuffer = inputBuffer;
+        }
     }
 }
