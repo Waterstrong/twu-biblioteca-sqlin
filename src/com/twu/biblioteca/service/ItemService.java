@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.twu.biblioteca.domain.Book;
-
 public abstract class ItemService<T> {
 
     public List<T> listItems() {

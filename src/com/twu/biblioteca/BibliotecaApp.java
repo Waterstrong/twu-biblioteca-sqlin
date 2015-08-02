@@ -34,7 +34,7 @@ public class BibliotecaApp {
         menuService.registerMainMenu(new Menu("Return Book", Action.RETURN_ITEM), bookService);
         menuService.registerMainMenu(new Menu("List Movies", Action.LIST_ITEMS), movieService);
         menuService.registerMainMenu(new Menu("Checkout Movie", Action.CHECKOUT_ITEM), movieService);
-        menuService.registerMainMenu(new Menu("Return Book", Action.RETURN_ITEM), movieService);
+        menuService.registerMainMenu(new Menu("Return Movie", Action.RETURN_ITEM), movieService);
         menuService.registerMainMenu(new Menu("My Profile", Action.DISPLAY_PROFILE), null);
         menuService.registerMainMenu(new Menu("Quit", Action.QUIT), null);
     }

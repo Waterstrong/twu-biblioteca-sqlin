@@ -1,5 +1,7 @@
 package com.twu.biblioteca.service;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +27,12 @@ public class MovieService extends ItemService<Movie> {
 
     @Override
     protected void sortItemList(List<Movie> itemList) {
-
+        Collections.sort(itemList, new Comparator<Movie>() {
+            @Override
+            public int compare(Movie movie1, Movie movie2) {
+                return movie1.getId().compareTo(movie2.getId());
+            }
+        });
     }
 
     @Override

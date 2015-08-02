@@ -29,8 +29,8 @@ public class BookService extends ItemService<Book> {
     protected void sortItemList(List<Book> itemList) {
         Collections.sort(itemList, new Comparator<Book>() {
             @Override
-            public int compare(Book item1, Book item2) {
-                return item1.getId().compareTo(item2.getId());
+            public int compare(Book book1, Book book2) {
+                return book1.getId().compareTo(book2.getId());
             }
         });
     }
