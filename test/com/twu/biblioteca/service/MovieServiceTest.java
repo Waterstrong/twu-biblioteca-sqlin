@@ -33,7 +33,7 @@ public class MovieServiceTest {
 
     @Test
     public void should_be_able_to_checkout_movie() {
-        String message = movieService.checkoutItem("M0002", "R0001");
+        String message = movieService.checkoutItem("M0003", "R0001");
         assertEquals(message, "Thank you! Enjoy the movie!");
     }
 

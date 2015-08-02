@@ -33,7 +33,7 @@ public class BookServiceTest {
 
     @Test
     public void should_be_able_to_checkout_book() {
-        String message = bookService.checkoutItem("B0002", "R0001");
+        String message = bookService.checkoutItem("B0003", "R0001");
         assertEquals(message, "Thank you! Enjoy the book");
     }
 
