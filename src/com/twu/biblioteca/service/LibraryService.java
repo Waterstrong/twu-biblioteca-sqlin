@@ -2,7 +2,6 @@ package com.twu.biblioteca.service;
 
 import java.util.List;
 
-import com.twu.biblioteca.domain.Book;
 import com.twu.biblioteca.domain.Menu;
 
 public class LibraryService {
@@ -62,8 +61,11 @@ public class LibraryService {
     }
 
     private void listItems(ItemService itemService) {
-        List<Book> books = itemService.listItems();
-        consoleService.printBookList(books);
+        List items = itemService.listItems();
+        consoleService.printMessage(itemService.generateItemColumnHeader());
+        for (int i = 0; i < items.size(); ++i) {
+            consoleService.printMessage(itemService.generateItemColumnContent(items.get(i)));
+        }
     }
 
     private void returnItem(ItemService itemService, String prompt) {

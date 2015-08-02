@@ -1,6 +1,7 @@
 package com.twu.biblioteca.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Before;
@@ -54,14 +55,14 @@ public class LibraryServiceTest {
     }
 
     @Test
-    public void should_be_able_to_execute_checkout_item_action() {
+    public void should_be_able_to_execute_checkout_book_action() {
         consoleServiceMock.setOption(2, 4);
         libraryService.run();
 //        verify(bookServiceMock, times(1)).checkoutItem("AAA", "AAA");
     }
 
     @Test
-    public void should_be_able_to_execute_return_checked_item_action() {
+    public void should_be_able_to_execute_return_checked_book_action() {
         consoleServiceMock.setOption(3, 4);
         libraryService.run();
 //        verify(bookServiceMock, times(1)).returnCheckedItem("AAA");
@@ -107,9 +108,6 @@ public class LibraryServiceTest {
         public void printMenuPrompt(List<Menu> menus) {
         }
 
-        public void printBookList(List<Book> books) {
-        }
-
         public void printMessage(String message) {
         }
 
@@ -120,7 +118,9 @@ public class LibraryServiceTest {
 
     private class BookServiceMock extends BookService {
         public List<Book> listItems() {
-            return new ArrayList<Book>();
+            return new ArrayList<Book>(Arrays.asList(
+                    new Book("id", "title", "author", "2015", "press")
+            ));
         }
 
         public String checkoutItem(String itemId, String readerId) {

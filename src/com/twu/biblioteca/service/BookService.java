@@ -56,4 +56,14 @@ public class BookService extends ItemService<Book> {
     protected String getUnsuccessfulReturnMessage() {
         return UNSUCCESSFUL_RETURN_BOOK_MESSAGE;
     }
+
+    @Override
+    public String generateItemColumnHeader() {
+        return Book.getColumnHeader();
+    }
+
+    @Override
+    public String generateItemColumnContent(Book item) {
+        return item.getColumnContent();
+    }
 }

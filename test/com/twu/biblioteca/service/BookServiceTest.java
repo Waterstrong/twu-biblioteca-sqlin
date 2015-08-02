@@ -62,4 +62,15 @@ public class BookServiceTest {
         String message = bookService.returnCheckedItem("B000X");
         assertEquals(message, "That is not a valid book to return.");
     }
+
+    @Test
+    public void should_be_able_to_generate_book_column_header() {
+        assertEquals(bookService.generateItemColumnHeader(), Book.getColumnHeader());
+    }
+
+    @Test
+    public void should_be_able_to_generate_book_column_content() {
+        Book book = new Book("id", "title", "author", "2015", "press");
+        assertEquals(bookService.generateItemColumnContent(book), book.getColumnContent());
+    }
 }

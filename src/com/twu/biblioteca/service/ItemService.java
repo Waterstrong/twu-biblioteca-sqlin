@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.twu.biblioteca.domain.Book;
+
 public abstract class ItemService<T> {
 
     public List<T> listItems() {
@@ -49,4 +51,8 @@ public abstract class ItemService<T> {
     protected abstract String getUnsuccessfulCheckoutMessage();
 
     protected abstract String getUnsuccessfulReturnMessage();
+
+    public abstract String generateItemColumnHeader();
+
+    public abstract String generateItemColumnContent(T item);
 }

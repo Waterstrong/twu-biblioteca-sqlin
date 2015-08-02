@@ -62,4 +62,15 @@ public class MovieServiceTest {
         String message = movieService.returnCheckedItem("M000X");
         assertEquals(message, "That is not a valid movie to return.");
     }
+
+    @Test
+    public void should_be_able_to_generate_movie_column_header() {
+        assertEquals(movieService.generateItemColumnHeader(), Movie.getColumnHeader());
+    }
+
+    @Test
+    public void should_be_able_to_generate_movie_column_content() {
+        Movie movie = new Movie("id", "name", "2015", "director", 8);
+        assertEquals(movieService.generateItemColumnContent(movie), movie.getColumnContent());
+    }
 }

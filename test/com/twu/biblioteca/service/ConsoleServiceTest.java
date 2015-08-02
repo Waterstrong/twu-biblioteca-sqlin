@@ -104,19 +104,19 @@ public class ConsoleServiceTest {
         assertNull(input);
     }
 
-    @Test
-    public void should_be_able_to_print_book_list() {
-        List<Book> books = new ArrayList<Book>(Arrays.asList(
-                new Book("123", "hello", "water", "2015", "press"),
-                new Book("456", "haha", "lin", "2015", "bbc")
-        ));
-        consoleService.printBookList(books);
-        String result = "Book ID         Title         Author     Published Year      Press\n" +
-                "------------------------------------------------------------------\n" +
-                "123    hello    water    2015    press\n" +
-                "456    haha    lin    2015    bbc\n";
-        assertEquals(outContent.toString(), result);
-    }
+//    @Test
+//    public void should_be_able_to_print_book_list() {
+//        List<Book> books = new ArrayList<Book>(Arrays.asList(
+//                new Book("123", "hello", "water", "2015", "press"),
+//                new Book("456", "haha", "lin", "2015", "bbc")
+//        ));
+//        consoleService.printBookList(books);
+//        String result = "Book ID         Title         Author     Published Year      Press\n" +
+//                "------------------------------------------------------------------\n" +
+//                "123    hello    water    2015    press\n" +
+//                "456    haha    lin    2015    bbc\n";
+//        assertEquals(outContent.toString(), result);
+//    }
 
 
     class ConsoleServiceMock extends ConsoleService {

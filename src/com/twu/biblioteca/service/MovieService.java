@@ -49,4 +49,14 @@ public class MovieService extends ItemService<Movie> {
     protected String getUnsuccessfulReturnMessage() {
         return UNSUCCESSFUL_RETURN_MOVIE_MESSAGE;
     }
+
+    @Override
+    public String generateItemColumnHeader() {
+        return Movie.getColumnHeader();
+    }
+
+    @Override
+    public String generateItemColumnContent(Movie item) {
+        return item.getColumnContent();
+    }
 }

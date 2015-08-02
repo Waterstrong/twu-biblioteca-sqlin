@@ -71,10 +71,10 @@ public class ConsoleService {
         System.out.println(message);
     }
 
-    public void printBookList(List<Book> books) {
-        System.out.println(Book.getColumnHeader());
-        for (Book book : books) {
-            System.out.println(book.getColumnContent());
-        }
-    }
+//    public void printBookList(List<Book> books) {
+//        System.out.println(Book.getColumnHeader());
+//        for (Book book : books) {
+//            System.out.println(book.getColumnContent());
+//        }
+//    }
 }
