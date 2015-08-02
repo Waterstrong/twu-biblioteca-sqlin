@@ -1,6 +1,5 @@
 package com.twu.biblioteca.service;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -9,7 +8,7 @@ import java.util.Map;
 import com.twu.biblioteca.domain.Book;
 import com.twu.biblioteca.repository.LibraryRepository;
 
-public class BookService implements ItemService {
+public class BookService extends ItemService<Book> {
 
     private final String SUCCESSFUL_CHECKOUT_MESSAGE = "Thank you! Enjoy the book";
     private final String UNSUCCESSFUL_CHECKOUT_MESSAGE = "That book is not available.";
@@ -17,55 +16,44 @@ public class BookService implements ItemService {
     private final String UNSUCCESSFUL_RETURN_MESSAGE = "That is not a valid book to return.";
 
     @Override
-    public List<Book> listItems() {
-        Map<String, Book> books = LibraryRepository.listBooks();
-        Map<String, String> checkoutBooks = LibraryRepository.getCheckoutBooks();
-        List<Book> bookList = new ArrayList<Book>();
-        for(String bookId : books.keySet()) {
-            if(!checkoutBooks.containsKey(bookId)) {
-                bookList.add(books.get(bookId));
-            }
-        }
-        sortBookList(bookList);
-        return bookList;
+    protected Map<String, String> getCheckedItemsFromRepository() {
+        return LibraryRepository.getCheckedBooks();
     }
 
-    private void sortBookList(List<Book> bookList) {
-        Collections.sort(bookList, new Comparator<Book>() {
+    @Override
+    protected Map<String, Book> getItemsFromRepository() {
+        return LibraryRepository.listBooks();
+    }
+
+    @Override
+    protected void sortItemList(List<Book> itemList) {
+        Collections.sort(itemList, new Comparator<Book>() {
             @Override
-            public int compare(Book book1, Book book2) {
-                return book1.getId().compareTo(book2.getId());
+            public int compare(Book item1, Book item2) {
+                return item1.getId().compareTo(item2.getId());
             }
         });
     }
 
     @Override
-    public String checkoutItem(String bookId, String readerId) {
-        String message = SUCCESSFUL_CHECKOUT_MESSAGE;
-        if (isExistBook(bookId) && !isCheckedOut(bookId)) {
-            LibraryRepository.saveCheckoutBook(bookId, readerId);
-        } else {
-            message = UNSUCCESSFUL_CHECKOUT_MESSAGE;
-        }
-        return message;
-    }
-
-    private boolean isExistBook(String bookId) {
-        return LibraryRepository.listBooks().containsKey(bookId);
-    }
-
-    private boolean isCheckedOut(String bookId) {
-        return LibraryRepository.getCheckoutBooks().containsKey(bookId);
+    protected String saveCheckoutBookToRepository(String itemId, String readerId) {
+        LibraryRepository.saveCheckoutBook(itemId, readerId);
+        return SUCCESSFUL_CHECKOUT_MESSAGE;
     }
 
     @Override
-    public String returnCheckedItem(String bookId) {
-        String message = SUCCESSFUL_RETURN_MESSAGE;
-        if(LibraryRepository.getCheckoutBooks().containsKey(bookId)) {
-            LibraryRepository.returnCheckedBook(bookId);
-        } else {
-            message = UNSUCCESSFUL_RETURN_MESSAGE;
-        }
-        return message;
+    protected String returnCheckedItemToRepository(String itemId) {
+        LibraryRepository.returnCheckedBook(itemId);
+        return SUCCESSFUL_RETURN_MESSAGE;
+    }
+
+    @Override
+    protected String getUnsuccessfulCheckoutMessage() {
+        return UNSUCCESSFUL_CHECKOUT_MESSAGE;
+    }
+
+    @Override
+    protected String getUnsuccessfulReturnMessage() {
+        return UNSUCCESSFUL_RETURN_MESSAGE;
     }
 }

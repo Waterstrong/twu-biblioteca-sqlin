@@ -123,11 +123,11 @@ public class LibraryServiceTest {
             return new ArrayList<Book>();
         }
 
-        public String checkoutItem(String bookId, String readerId) {
+        public String checkoutItem(String itemId, String readerId) {
             return "checkout item executed";
         }
 
-        public String returnCheckedItem(String bookId) {
+        public String returnCheckedItem(String itemId) {
             return "return checked item executed";
         }
     }
