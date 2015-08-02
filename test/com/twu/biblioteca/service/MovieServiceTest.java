@@ -53,13 +53,20 @@ public class MovieServiceTest {
     @Test
     public void should_be_able_to_return_movie() {
         movieService.checkoutItem("M0001", "R0001");
-        String message = movieService.returnCheckedItem("M0001");
+        String message = movieService.returnCheckedItem("M0001", "R0001");
         assertEquals(message, "Thank you for returning the movie.");
     }
 
     @Test
-    public void should_not_be_able_to_return_movie() throws Exception {
-        String message = movieService.returnCheckedItem("M000X");
+    public void should_not_return_movie_when_movie_id_is_incorrect() {
+        String message = movieService.returnCheckedItem("M000X", "R0001");
+        assertEquals(message, "That is not a valid movie to return.");
+    }
+
+    @Test
+    public void should_not_return_movie_when_reader_id_is_incorrect() {
+        movieService.checkoutItem("M0001", "R0001");
+        String message = movieService.returnCheckedItem("M0001", "R000X");
         assertEquals(message, "That is not a valid movie to return.");
     }
 

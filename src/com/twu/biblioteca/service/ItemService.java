@@ -26,8 +26,8 @@ public abstract class ItemService<T> {
                 saveCheckoutItemToRepository(itemId, readerId) : getUnsuccessfulCheckoutMessage();
     }
 
-    public String returnCheckedItem(String itemId) {
-        return isCheckedOut(itemId) ? returnCheckedItemToRepository(itemId) : getUnsuccessfulReturnMessage();
+    public String returnCheckedItem(String itemId, String readerId) {
+        return isCheckedOut(itemId, readerId) ? returnCheckedItemToRepository(itemId) : getUnsuccessfulReturnMessage();
     }
 
     private boolean isExistItem(String itemId) {
@@ -36,6 +36,10 @@ public abstract class ItemService<T> {
 
     private boolean isCheckedOut(String itemId) {
         return getCheckedItemsFromRepository().containsKey(itemId);
+    }
+
+    private boolean isCheckedOut(String itemId, String readerId) {
+        return isCheckedOut(itemId) && getCheckedItemsFromRepository().containsValue(readerId);
     }
 
     protected abstract Map<String, T> getItemsFromRepository();

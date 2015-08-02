@@ -3,15 +3,18 @@ package com.twu.biblioteca.service;
 import java.util.List;
 
 import com.twu.biblioteca.domain.Menu;
+import com.twu.biblioteca.domain.UserAccount;
 
 public class LibraryService {
     private final String INVALID_OPTION_MESSAGE = "Select a valid option!";
     private final String NOT_SUPPORT_ACTION_ERROR = "Not Support This Action!";
     private final String SYSTEM_PAUSE_MESSAGE = "\n************Press enter to continue!***********";
-    private MenuService menuService;
-    private ConsoleService consoleService;
+    private final MenuService menuService;
+    private final ConsoleService consoleService;
+    private final UserAccount loginUser;
 
-    public LibraryService(MenuService menuService, ConsoleService consoleService) {
+    public LibraryService(UserAccount loginUser, MenuService menuService, ConsoleService consoleService) {
+        this.loginUser = loginUser;
         this.menuService = menuService;
         this.consoleService = consoleService;
     }
@@ -19,6 +22,7 @@ public class LibraryService {
     public void run() {
         boolean isRunning = true;
         consoleService.showWelcome();
+        consoleService.printMessage(loginUser.getUserProfile());
         while (isRunning) {
             List<Menu> menus = menuService.listMainMenus();
             consoleService.printMenuPrompt(menus);
@@ -53,6 +57,9 @@ public class LibraryService {
             case QUIT:
                 consoleService.sayBye();
                 return false;
+            case DISPLAY_PROFILE:
+                consoleService.printMessage(loginUser.getUserProfile());
+                break;
             default:
                 consoleService.printError(NOT_SUPPORT_ACTION_ERROR);
                 break;
@@ -70,14 +77,13 @@ public class LibraryService {
 
     private void returnItem(ItemService itemService, String prompt) {
         String itemId = consoleService.inputWithPrompt("Please input the " + prompt + " id: ");
-        String message = itemService.returnCheckedItem(itemId);
+        String message = itemService.returnCheckedItem(itemId, loginUser.getUserId());
         consoleService.printMessage(message);
     }
 
     private void checkoutItem(ItemService itemService, String prompt) {
         String bookId = consoleService.inputWithPrompt("Please input the " + prompt + " id: ");
-        String readerId = consoleService.inputWithPrompt("Please input the read id: ");
-        String result = itemService.checkoutItem(bookId, readerId);
+        String result = itemService.checkoutItem(bookId, loginUser.getUserId());
         consoleService.printMessage(result);
     }
 }

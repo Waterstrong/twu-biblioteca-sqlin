@@ -5,10 +5,18 @@ import com.twu.biblioteca.repository.LibraryRepository;
 
 public class AccountService {
 
-    private UserAccount loginUserAccount;
+    private UserAccount loginUser;
 
-    public boolean login(String userId, String password) {
-        loginUserAccount = LibraryRepository.findUserAccount(userId, password);
-        return loginUserAccount != null;
+    public boolean login(String loginId, String password) {
+        if (loginId == null || loginId.isEmpty() ||
+                password == null || password.isEmpty()) {
+            return false;
+        }
+        loginUser = LibraryRepository.findUserAccount(loginId, password);
+        return loginUser != null;
+    }
+
+    public UserAccount getLoginUser() {
+        return loginUser;
     }
 }

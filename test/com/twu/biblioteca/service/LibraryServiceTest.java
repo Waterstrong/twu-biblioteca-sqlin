@@ -8,7 +8,9 @@ import org.junit.Before;
 import org.junit.Test;
 import com.twu.biblioteca.domain.Book;
 import com.twu.biblioteca.domain.Menu;
+import com.twu.biblioteca.domain.UserAccount;
 import com.twu.biblioteca.enumeration.Action;
+import com.twu.biblioteca.enumeration.Role;
 
 public class LibraryServiceTest {
 
@@ -16,9 +18,11 @@ public class LibraryServiceTest {
     private BookServiceMock bookServiceMock;
     private MenuService menuService;
     private LibraryService libraryService;
+    private UserAccount loginUser;
 
     @Before
     public void setUp() {
+        loginUser = new UserAccount("111-1111", "123456", "Water", null, null, Role.CUSTOMER);
         consoleServiceMock = new ConsoleServiceMock();
 
         bookServiceMock = new BookServiceMock();
@@ -27,8 +31,9 @@ public class LibraryServiceTest {
         menuService.registerMainMenu(new Menu("Checkout Book", Action.CHECKOUT_ITEM), bookServiceMock);
         menuService.registerMainMenu(new Menu("Return Book", Action.RETURN_ITEM), bookServiceMock);
         menuService.registerMainMenu(new Menu("Quit", Action.QUIT), null);
+        menuService.registerMainMenu(new Menu("My Profile", Action.DISPLAY_PROFILE), null);
 
-        libraryService = new LibraryService(menuService, consoleServiceMock);
+        libraryService = new LibraryService(loginUser, menuService, consoleServiceMock);
     }
 
     // TODO : waiting for mock dependency
@@ -69,10 +74,22 @@ public class LibraryServiceTest {
     }
 
     @Test
-    public void should_not_match_any_actions() {
-        menuService.registerMainMenu(new Menu("Unkown", Action.UNKNOW), null);
+    public void should_be_able_to_execute_display_my_profile_action() {
         consoleServiceMock.setOption(5, 4);
         libraryService.run();
+//        verify(loginUser, times(1)).getUserProfile();
+    }
+
+    @Test
+    public void should_not_match_any_actions() {
+        MenuService menuService = new MenuService();
+        menuService.registerMainMenu(new Menu("Unknown", Action.UNKNOWN), null);
+        menuService.registerMainMenu(new Menu("Quit", Action.QUIT), null);
+        LibraryService libraryService = new LibraryService(loginUser, menuService, consoleServiceMock);
+        consoleServiceMock.setOption(1, 2);
+
+        libraryService.run();
+
 //        verify(consoleServiceMock, times(1)).printError("Not Support This Action!");
     }
 
@@ -127,7 +144,7 @@ public class LibraryServiceTest {
             return "checkout item executed";
         }
 
-        public String returnCheckedItem(String itemId) {
+        public String returnCheckedItem(String itemId, String readerId) {
             return "return checked item executed";
         }
     }

@@ -19,7 +19,34 @@ public class UserAccount {
         this.role = role;
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
     public String getPassword() {
         return password;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public String getUserProfile() {
+        String split = " | ";
+        return "ID: " + getUserId() + split + "Role: " + getRole().name() + split +
+                "Name: " + getName() + split + "Email: " + getEmail() + split +
+                "Phone: " + getPhone();
     }
 }

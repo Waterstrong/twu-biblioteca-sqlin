@@ -53,13 +53,20 @@ public class BookServiceTest {
     @Test
     public void should_be_able_to_return_book() {
         bookService.checkoutItem("B0001", "R0001");
-        String message = bookService.returnCheckedItem("B0001");
+        String message = bookService.returnCheckedItem("B0001", "R0001");
         assertEquals(message, "Thank you for returning the book.");
     }
 
     @Test
-    public void should_not_be_able_to_return_book() {
-        String message = bookService.returnCheckedItem("B000X");
+    public void should_not_return_book_when_book_id_is_incorrect() {
+        String message = bookService.returnCheckedItem("B000X", "R0001");
+        assertEquals(message, "That is not a valid book to return.");
+    }
+
+    @Test
+    public void should_not_return_book_when_reader_id_is_incorrect() {
+        bookService.checkoutItem("B0001", "R0001");
+        String message = bookService.returnCheckedItem("B0001", "R000X");
         assertEquals(message, "That is not a valid book to return.");
     }
 
