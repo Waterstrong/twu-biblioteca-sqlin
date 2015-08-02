@@ -20,7 +20,7 @@ public class ConsoleService {
         System.out.println("\n===============Welcome to the Biblioteca!===============");
     }
 
-    public static void sayBye() {
+    public void sayBye() {
         System.out.println("\n===============Thank you for using the Biblioteca! Bye!===============\n");
     }
 
@@ -71,7 +71,7 @@ public class ConsoleService {
         System.out.println(message);
     }
 
-    public static void printBookList(List<Book> books) {
+    public void printBookList(List<Book> books) {
         System.out.println(Book.getColumnHeader());
         for (Book book : books) {
             System.out.println(book.getColumnContent());

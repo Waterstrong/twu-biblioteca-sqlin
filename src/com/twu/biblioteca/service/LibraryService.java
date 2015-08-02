@@ -8,6 +8,7 @@ import com.twu.biblioteca.domain.Menu;
 public class LibraryService {
     private final String INVALID_OPTION_MESSAGE = "Select a valid option!";
     private final String NOT_SUPPORT_ACTION_ERROR = "Not Support This Action!";
+    private final String SYSTEM_PAUSE_MESSAGE = "\n************Press enter to continue!***********";
     private MenuService menuService;
     private ConsoleService consoleService;
 
@@ -28,7 +29,12 @@ public class LibraryService {
                 continue;
             }
             isRunning = handleAction(menus, option);
+            systemPause();
         }
+    }
+
+    private void systemPause() {
+        consoleService.inputWithPrompt(SYSTEM_PAUSE_MESSAGE);
     }
 
     private boolean handleAction(List<Menu> menus, int option) {
@@ -46,7 +52,7 @@ public class LibraryService {
                 returnItem(itemService, prompt);
                 break;
             case QUIT:
-                ConsoleService.sayBye();
+                consoleService.sayBye();
                 return false;
             default:
                 consoleService.printError(NOT_SUPPORT_ACTION_ERROR);
@@ -57,7 +63,7 @@ public class LibraryService {
 
     private void listItems(ItemService itemService) {
         List<Book> books = itemService.listItems();
-        ConsoleService.printBookList(books);
+        consoleService.printBookList(books);
     }
 
     private void returnItem(ItemService itemService, String prompt) {

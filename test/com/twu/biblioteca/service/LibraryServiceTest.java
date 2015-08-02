@@ -32,47 +32,50 @@ public class LibraryServiceTest {
 
     // TODO : waiting for mock dependency
 
-//    @Test
-//    public void should_be_able_to_exit_application() throws Exception {
-//        consoleServiceMock.setOption(4);
-//        libraryService.run();
-//        //verify(consoleServiceMock, times(1)).sayBye();
-//    }
+    @Test
+    public void should_be_able_to_exit_application() throws Exception {
+        consoleServiceMock.setOption(4);
+        libraryService.run();
+        //verify(consoleServiceMock, times(1)).sayBye();
+    }
 
-//    @Test
-//    public void should_be_able_to_output_invalid_message_when_option_is_zero_or_out_of_scope() throws Exception {
-//        consoleServiceMock.setOption(0, 8, 4);
-//        libraryService.run();
-////        verify(consoleServiceMock, times(2)).printMessage("Select a valid option!");
-//    }
-//
-//    @Ignore
-//    @Test
-//    public void should_be_able_to_execute_list_books_action() throws Exception {
-//        consoleServiceMock.setOption(1, 4);
-//        libraryService.run();
-////        verify(bookServiceMock, times(1)).listItems();
-//    }
-//
-//    @Ignore
-//    @Test
-//    public void should_be_able_to_execute_checkout_item_action() throws Exception {
-//        consoleServiceMock.setOption(2, 4);
-//        libraryService.run();
-////        verify(bookServiceMock, times(1)).checkoutItem("AAA", "AAA");
-//    }
-//
-//    @Ignore
-//    @Test
-//    public void should_be_able_to_execute_return_checked_item_action() throws Exception {
-//        consoleServiceMock.setOption(3, 4);
-//        libraryService.run();
-////        verify(bookServiceMock, times(1)).returnCheckedItem("AAA");
-//    }
+    @Test
+    public void should_be_able_to_output_invalid_message_when_option_is_zero_or_out_of_scope() throws Exception {
+        consoleServiceMock.setOption(0, 8, 4);
+        libraryService.run();
+//        verify(consoleServiceMock, times(2)).printMessage("Select a valid option!");
+    }
 
+    @Test
+    public void should_be_able_to_execute_list_books_action() throws Exception {
+        consoleServiceMock.setOption(1, 4);
+        libraryService.run();
+//        verify(bookServiceMock, times(1)).listItems();
+    }
 
+    @Test
+    public void should_be_able_to_execute_checkout_item_action() throws Exception {
+        consoleServiceMock.setOption(2, 4);
+        libraryService.run();
+//        verify(bookServiceMock, times(1)).checkoutItem("AAA", "AAA");
+    }
 
-    class ConsoleServiceMock extends ConsoleService {
+    @Test
+    public void should_be_able_to_execute_return_checked_item_action() throws Exception {
+        consoleServiceMock.setOption(3, 4);
+        libraryService.run();
+//        verify(bookServiceMock, times(1)).returnCheckedItem("AAA");
+    }
+
+    @Test
+    public void should_not_match_any_actions() throws Exception {
+        menuService.registerMainMenu(new Menu("Unkown", Action.UNKNOW), null);
+        consoleServiceMock.setOption(5, 4);
+        libraryService.run();
+//        verify(consoleServiceMock, times(1)).printError("Not Support This Action!");
+    }
+
+    private class ConsoleServiceMock extends ConsoleService {
         private int[] options;
         private int index;
 
@@ -92,12 +95,30 @@ public class LibraryServiceTest {
         }
 
         public String inputWithPrompt(String prompt) {
-            System.out.print(prompt);
             return "AAA";
         }
+
+        public void showWelcome() {
+        }
+
+        public void sayBye() {
+        }
+
+        public void printMenuPrompt(List<Menu> menus) {
+        }
+
+        public void printBookList(List<Book> books) {
+        }
+
+        public void printMessage(String message) {
+        }
+
+        public void printError(String error) {
+        }
+
     }
 
-    class BookServiceMock extends BookService {
+    private class BookServiceMock extends BookService {
         public List<Book> listItems() {
             return new ArrayList<Book>();
         }
