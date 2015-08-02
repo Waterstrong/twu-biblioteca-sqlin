@@ -7,6 +7,7 @@ import com.twu.biblioteca.domain.Menu;
 
 public class LibraryService {
     private final String INVALID_OPTION_MESSAGE = "Select a valid option!";
+    private final String NOT_SUPPORT_ACTION_ERROR = "Not Support This Action!";
     private MenuService menuService;
     private ConsoleService consoleService;
 
@@ -16,20 +17,21 @@ public class LibraryService {
     }
 
     public void run() {
-        while (true) {
+        boolean isRunning = true;
+        consoleService.showWelcome();
+        while (isRunning) {
             List<Menu> menus = menuService.listMainMenus();
             consoleService.printMenuPrompt(menus);
-            consoleService.chooseOption();
             int option = consoleService.chooseOption();
             if (option == 0 || option > menus.size()) {
                 consoleService.printMessage(INVALID_OPTION_MESSAGE);
                 continue;
             }
-            handleAction(menus, option);
+            isRunning = handleAction(menus, option);
         }
     }
 
-    private void handleAction(List<Menu> menus, int option) {
+    private boolean handleAction(List<Menu> menus, int option) {
         Menu menu = menus.get(option - 1);
         ItemService itemService = menuService.getItemService(menu);
         String prompt = menu.getPrompt().toLowerCase();
@@ -44,16 +46,13 @@ public class LibraryService {
                 returnItem(itemService, prompt);
                 break;
             case QUIT:
-                quitApplication();
+                ConsoleService.sayBye();
+                return false;
             default:
-                consoleService.printError("Not Support This Action!");
+                consoleService.printError(NOT_SUPPORT_ACTION_ERROR);
                 break;
         }
-    }
-
-    private void quitApplication() {
-        ConsoleService.sayBye();
-        System.exit(0);
+        return true;
     }
 
     private void listItems(ItemService itemService) {

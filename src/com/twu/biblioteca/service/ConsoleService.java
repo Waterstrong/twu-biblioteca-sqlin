@@ -17,7 +17,7 @@ public class ConsoleService {
     }
 
     public void showWelcome() {
-        System.out.println("===============Welcome to the Biblioteca!===============\n");
+        System.out.println("\n===============Welcome to the Biblioteca!===============");
     }
 
     public static void sayBye() {
@@ -29,7 +29,7 @@ public class ConsoleService {
     }
 
     public int chooseOption() {
-        String input = inputWithPrompt("Please choose an option: ");
+        String input = inputWithPrompt("Please choose an option from above: ");
         if(input != null) {
             try {
                 return Integer.parseInt(input);

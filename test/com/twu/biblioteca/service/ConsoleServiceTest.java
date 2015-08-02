@@ -40,7 +40,7 @@ public class ConsoleServiceTest {
     @Test
     public void should_be_able_to_show_welcome_message() {
         consoleService.showWelcome();
-        assertEquals(outContent.toString(), "===============Welcome to the Biblioteca!===============\n\n");
+        assertEquals(outContent.toString(), "\n===============Welcome to the Biblioteca!===============\n");
     }
 
     @Test
@@ -118,7 +118,8 @@ public class ConsoleServiceTest {
         assertEquals(outContent.toString(), result);
     }
 
-    private class ConsoleServiceMock extends ConsoleService {
+
+    class ConsoleServiceMock extends ConsoleService {
         private String inputBuffer;
         public String inputWithPrompt(String prompt){
             return inputBuffer;
