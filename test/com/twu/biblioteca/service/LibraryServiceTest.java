@@ -17,7 +17,7 @@ public class LibraryServiceTest {
     private LibraryService libraryService;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         consoleServiceMock = new ConsoleServiceMock();
 
         bookServiceMock = new BookServiceMock();
@@ -33,42 +33,42 @@ public class LibraryServiceTest {
     // TODO : waiting for mock dependency
 
     @Test
-    public void should_be_able_to_exit_application() throws Exception {
+    public void should_be_able_to_exit_application() {
         consoleServiceMock.setOption(4);
         libraryService.run();
         //verify(consoleServiceMock, times(1)).sayBye();
     }
 
     @Test
-    public void should_be_able_to_output_invalid_message_when_option_is_zero_or_out_of_scope() throws Exception {
+    public void should_be_able_to_output_invalid_message_when_option_is_zero_or_out_of_scope() {
         consoleServiceMock.setOption(0, 8, 4);
         libraryService.run();
 //        verify(consoleServiceMock, times(2)).printMessage("Select a valid option!");
     }
 
     @Test
-    public void should_be_able_to_execute_list_books_action() throws Exception {
+    public void should_be_able_to_execute_list_books_action() {
         consoleServiceMock.setOption(1, 4);
         libraryService.run();
 //        verify(bookServiceMock, times(1)).listItems();
     }
 
     @Test
-    public void should_be_able_to_execute_checkout_item_action() throws Exception {
+    public void should_be_able_to_execute_checkout_item_action() {
         consoleServiceMock.setOption(2, 4);
         libraryService.run();
 //        verify(bookServiceMock, times(1)).checkoutItem("AAA", "AAA");
     }
 
     @Test
-    public void should_be_able_to_execute_return_checked_item_action() throws Exception {
+    public void should_be_able_to_execute_return_checked_item_action() {
         consoleServiceMock.setOption(3, 4);
         libraryService.run();
 //        verify(bookServiceMock, times(1)).returnCheckedItem("AAA");
     }
 
     @Test
-    public void should_not_match_any_actions() throws Exception {
+    public void should_not_match_any_actions() {
         menuService.registerMainMenu(new Menu("Unkown", Action.UNKNOW), null);
         consoleServiceMock.setOption(5, 4);
         libraryService.run();

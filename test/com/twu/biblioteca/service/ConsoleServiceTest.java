@@ -32,7 +32,7 @@ public class ConsoleServiceTest {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         System.setOut(null);
         System.setErr(null);
     }
@@ -44,7 +44,7 @@ public class ConsoleServiceTest {
     }
 
     @Test
-    public void should_be_able_to_show_bye_message() throws Exception {
+    public void should_be_able_to_show_bye_message() {
         consoleService.sayBye();
         assertEquals(outContent.toString(), "\n===============Thank you for using the Biblioteca! Bye!===============\n\n");
     }
@@ -57,28 +57,28 @@ public class ConsoleServiceTest {
     }
 
     @Test
-    public void should_be_able_to_print_specified_message() throws Exception {
+    public void should_be_able_to_print_specified_message() {
         String message = "This is a message.";
         consoleService.printMessage(message);
         assertEquals(outContent.toString(), message + "\n");
     }
 
     @Test
-    public void should_be_able_to_choose_an_option() throws IOException {
+    public void should_be_able_to_choose_an_option() {
         consoleServiceMock.setInputBuffer("1");
         int option = consoleServiceMock.chooseOption();
         assertEquals(option, 1);
     }
 
     @Test
-    public void should_not_get_an_valid_option_when_input_is_null() throws Exception {
+    public void should_not_get_an_valid_option_when_input_is_null() {
         consoleServiceMock.setInputBuffer(null);
         int option = consoleServiceMock.chooseOption();
         assertEquals(option, 0);
     }
 
     @Test
-    public void should_not_get_an_valid_option_when_input_is_not_integer() throws Exception {
+    public void should_not_get_an_valid_option_when_input_is_not_integer() {
         consoleServiceMock.setInputBuffer("buffer");
         int option = consoleServiceMock.chooseOption();
         assertEquals(option, 0);
@@ -96,7 +96,7 @@ public class ConsoleServiceTest {
     }
 
     @Test
-    public void should_be_able_to_input_nothing_with_prompt() throws Exception {
+    public void should_be_able_to_input_nothing_with_prompt() throws IOException {
         String prompt = "please input: ";
         consoleService.getBufferedReader().close();
         String input = consoleService.inputWithPrompt(prompt);
@@ -105,7 +105,7 @@ public class ConsoleServiceTest {
     }
 
     @Test
-    public void should_be_able_to_print_book_list() throws Exception {
+    public void should_be_able_to_print_book_list() {
         List<Book> books = new ArrayList<Book>(Arrays.asList(
                 new Book("123", "hello", "water", "2015", "press"),
                 new Book("456", "haha", "lin", "2015", "bbc")

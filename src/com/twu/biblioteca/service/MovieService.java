@@ -8,6 +8,8 @@ import com.twu.biblioteca.repository.LibraryRepository;
 
 public class MovieService extends ItemService<Movie> {
 
+    private final String SUCCESSFUL_CHECKOUT_MOVIE_MESSAGE = "Thank you! Enjoy the movie!";
+
     @Override
     protected Map<String, Movie> getItemsFromRepository() {
         return LibraryRepository.listMovies();
@@ -24,8 +26,9 @@ public class MovieService extends ItemService<Movie> {
     }
 
     @Override
-    protected String saveCheckoutBookToRepository(String itemId, String readerId) {
-        return null;
+    protected String saveCheckoutItemToRepository(String itemId, String readerId) {
+        LibraryRepository.saveCheckoutMovie(itemId, readerId);
+        return SUCCESSFUL_CHECKOUT_MOVIE_MESSAGE;
     }
 
     @Override

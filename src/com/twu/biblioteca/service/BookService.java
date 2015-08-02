@@ -10,10 +10,10 @@ import com.twu.biblioteca.repository.LibraryRepository;
 
 public class BookService extends ItemService<Book> {
 
-    private final String SUCCESSFUL_CHECKOUT_MESSAGE = "Thank you! Enjoy the book";
-    private final String UNSUCCESSFUL_CHECKOUT_MESSAGE = "That book is not available.";
-    private final String SUCCESSFUL_RETURN_MESSAGE = "Thank you for returning the book.";
-    private final String UNSUCCESSFUL_RETURN_MESSAGE = "That is not a valid book to return.";
+    private final String SUCCESSFUL_CHECKOUT_BOOK_MESSAGE = "Thank you! Enjoy the book";
+    private final String UNSUCCESSFUL_CHECKOUT_BOOK_MESSAGE = "That book is not available.";
+    private final String SUCCESSFUL_RETURN_BOOK_MESSAGE = "Thank you for returning the book.";
+    private final String UNSUCCESSFUL_RETURN_BOOK_MESSAGE = "That is not a valid book to return.";
 
     @Override
     protected Map<String, String> getCheckedItemsFromRepository() {
@@ -36,24 +36,24 @@ public class BookService extends ItemService<Book> {
     }
 
     @Override
-    protected String saveCheckoutBookToRepository(String itemId, String readerId) {
+    protected String saveCheckoutItemToRepository(String itemId, String readerId) {
         LibraryRepository.saveCheckoutBook(itemId, readerId);
-        return SUCCESSFUL_CHECKOUT_MESSAGE;
+        return SUCCESSFUL_CHECKOUT_BOOK_MESSAGE;
     }
 
     @Override
     protected String returnCheckedItemToRepository(String itemId) {
         LibraryRepository.returnCheckedBook(itemId);
-        return SUCCESSFUL_RETURN_MESSAGE;
+        return SUCCESSFUL_RETURN_BOOK_MESSAGE;
     }
 
     @Override
     protected String getUnsuccessfulCheckoutMessage() {
-        return UNSUCCESSFUL_CHECKOUT_MESSAGE;
+        return UNSUCCESSFUL_CHECKOUT_BOOK_MESSAGE;
     }
 
     @Override
     protected String getUnsuccessfulReturnMessage() {
-        return UNSUCCESSFUL_RETURN_MESSAGE;
+        return UNSUCCESSFUL_RETURN_BOOK_MESSAGE;
     }
 }

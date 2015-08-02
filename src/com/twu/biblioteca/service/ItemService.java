@@ -21,7 +21,7 @@ public abstract class ItemService<T> {
 
     public String checkoutItem(String itemId, String readerId) {
         return isExistItem(itemId) && !isCheckedOut(itemId) ?
-                saveCheckoutBookToRepository(itemId, readerId) : getUnsuccessfulCheckoutMessage();
+                saveCheckoutItemToRepository(itemId, readerId) : getUnsuccessfulCheckoutMessage();
     }
 
     public String returnCheckedItem(String itemId) {
@@ -42,7 +42,7 @@ public abstract class ItemService<T> {
 
     protected abstract void sortItemList(List<T> itemList);
 
-    protected abstract String saveCheckoutBookToRepository(String itemId, String readerId);
+    protected abstract String saveCheckoutItemToRepository(String itemId, String readerId);
 
     protected abstract String returnCheckedItemToRepository(String itemId);
 

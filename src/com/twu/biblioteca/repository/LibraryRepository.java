@@ -45,4 +45,8 @@ public class LibraryRepository {
     public static Map<String, String> getCheckedMovies() {
         return checkedMovies;
     }
+
+    public static void saveCheckoutMovie(String movieId, String readerId) {
+        checkedMovies.put(movieId, readerId);
+    }
 }
