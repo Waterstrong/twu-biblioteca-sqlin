@@ -9,6 +9,9 @@ import com.twu.biblioteca.repository.LibraryRepository;
 public class MovieService extends ItemService<Movie> {
 
     private final String SUCCESSFUL_CHECKOUT_MOVIE_MESSAGE = "Thank you! Enjoy the movie!";
+    private final String UNSUCCESSFUL_CHECKOUT_MOVIE_MESSAGE = "That movie is not available.";
+    private final String SUCCESSFUL_RETURN_MOVIE_MESSAGE = "Thank you for returning the movie.";
+    private final String UNSUCCESSFUL_RETURN_MOVIE_MESSAGE = "That is not a valid movie to return.";
 
     @Override
     protected Map<String, Movie> getItemsFromRepository() {
@@ -33,16 +36,17 @@ public class MovieService extends ItemService<Movie> {
 
     @Override
     protected String returnCheckedItemToRepository(String itemId) {
-        return null;
+        LibraryRepository.returnCheckedMovie(itemId);
+        return SUCCESSFUL_RETURN_MOVIE_MESSAGE;
     }
 
     @Override
     protected String getUnsuccessfulCheckoutMessage() {
-        return null;
+        return UNSUCCESSFUL_CHECKOUT_MOVIE_MESSAGE;
     }
 
     @Override
     protected String getUnsuccessfulReturnMessage() {
-        return null;
+        return UNSUCCESSFUL_RETURN_MOVIE_MESSAGE;
     }
 }

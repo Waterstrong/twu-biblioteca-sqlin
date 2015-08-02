@@ -49,4 +49,8 @@ public class LibraryRepository {
     public static void saveCheckoutMovie(String movieId, String readerId) {
         checkedMovies.put(movieId, readerId);
     }
+
+    public static void returnCheckedMovie(String movieId) {
+        checkedMovies.remove(movieId);
+    }
 }
