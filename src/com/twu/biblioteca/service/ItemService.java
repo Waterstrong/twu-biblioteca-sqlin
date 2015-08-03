@@ -32,6 +32,19 @@ public abstract class ItemService<T> {
         return isCheckedOut(itemId, readerId) ? returnCheckedItemToRepository(itemId) : getUnsuccessfulReturnMessage();
     }
 
+    public List<String> listCheckedItems() {
+        Map<String, T> items = getItemsFromRepository();
+        Map<String, UserAccount> users = LibraryRepository.getUserAccounts();
+        Map<String, String> checkedItems = getCheckedItemsFromRepository();
+        List<String> checkedItemInfo = new LinkedList<String>();
+        for (String itemId : checkedItems.keySet()) {
+            T item = items.get(itemId);
+            UserAccount user = users.get(checkedItems.get(itemId));
+            checkedItemInfo.add(getItemDescription(item) + " is checked by " + user.getName());
+        }
+        return checkedItemInfo;
+    }
+
     private boolean isExistItem(String itemId) {
         return getItemsFromRepository().containsKey(itemId);
     }
@@ -61,19 +74,6 @@ public abstract class ItemService<T> {
     public abstract String generateItemColumnHeader();
 
     public abstract String generateItemColumnContent(T item);
-
-    public List<String> listCheckedItems() {
-        Map<String, T> items = getItemsFromRepository();
-        Map<String, UserAccount> users = LibraryRepository.getUserAccounts();
-        Map<String, String> checkedItems = getCheckedItemsFromRepository();
-        List<String> checkedItemInfo = new LinkedList<String>();
-        for (String itemId : checkedItems.keySet()) {
-            T item = items.get(itemId);
-            UserAccount user = users.get(checkedItems.get(itemId));
-            checkedItemInfo.add(getItemDescription(item) + " is checked by " + user.getName());
-        }
-        return checkedItemInfo;
-    }
 
     protected abstract String getItemDescription(T item);
 

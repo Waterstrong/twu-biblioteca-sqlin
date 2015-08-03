@@ -52,17 +52,27 @@ public class LibraryService {
             case RETURN_ITEM:
                 returnItem(itemService, prompt);
                 break;
-            case QUIT:
-                consoleService.sayBye();
-                return false;
+            case LIST_CHECKED:
+                listCheckedItems(itemService);
+                break;
             case DISPLAY_PROFILE:
                 consoleService.printMessage(loginUser.getUserProfile());
                 break;
+            case QUIT:
+                consoleService.sayBye();
+                return false;
             default:
                 consoleService.printError(NOT_SUPPORT_ACTION_ERROR);
                 break;
         }
         return true;
+    }
+
+    private void listCheckedItems(ItemService itemService) {
+        List<String> checkedItemsInfo = itemService.listCheckedItems();
+        for (String info : checkedItemsInfo) {
+            consoleService.printMessage(info);
+        }
     }
 
     private void listItems(ItemService itemService) {

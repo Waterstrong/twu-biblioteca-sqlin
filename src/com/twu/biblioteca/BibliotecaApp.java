@@ -11,7 +11,9 @@ public class BibliotecaApp {
     public static void main(String[] args) {
 
         ConsoleService consoleService = new ConsoleService();
-        consoleService.printMessage("Tips: Predefined User credentials: \n{[\n  {id: 111-1111, pwd: 123456, role: CUSTOMER },\n  {id: 222-2222, pwd: 123456, role: LIBRARIAN}\n]}");
+        consoleService.printMessage("Tips: Predefined User credentials: \n" +
+                "{[\n  {id: 111-1111, pwd: 123456, role: CUSTOMER },\n" +
+                "  {id: 222-2222, pwd: 123456, role: LIBRARIAN}\n]}");
         consoleService.showWelcome();
 
         AccountService accountService = new AccountService();

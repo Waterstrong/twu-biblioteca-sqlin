@@ -32,6 +32,7 @@ public class LibraryServiceTest {
         menuService.registerMainMenu(new Menu("Return Book", Action.RETURN_ITEM), bookServiceMock);
         menuService.registerMainMenu(new Menu("Quit", Action.QUIT), null);
         menuService.registerMainMenu(new Menu("My Profile", Action.DISPLAY_PROFILE), null);
+        menuService.registerMainMenu(new Menu("Who Checked Books?", Action.LIST_CHECKED), bookServiceMock);
 
         libraryService = new LibraryService(loginUser, menuService, consoleServiceMock);
     }
@@ -78,6 +79,14 @@ public class LibraryServiceTest {
         consoleServiceMock.setOption(5, 4);
         libraryService.run();
 //        verify(loginUser, times(1)).getUserProfile();
+    }
+
+    @Test
+    public void should_be_able_execute_list_checked_items_action() {
+        consoleServiceMock.setOption(6, 4);
+        libraryService.run();
+
+//        verify(bookServiceMock, times(1)).listCheckedItems();
     }
 
     @Test
@@ -147,5 +156,12 @@ public class LibraryServiceTest {
         public String returnCheckedItem(String itemId, String readerId) {
             return "return checked item executed";
         }
+
+        public List<String> listCheckedItems() {
+            return new ArrayList<String>(Arrays.asList(
+                    "Hello World"
+            ));
+        }
+
     }
 }
