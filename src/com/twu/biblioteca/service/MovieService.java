@@ -66,4 +66,9 @@ public class MovieService extends ItemService<Movie> {
     public String generateItemColumnContent(Movie item) {
         return item.getColumnContent();
     }
+
+    @Override
+    protected String getItemDescription(Movie item) {
+        return "Movie: " + item.getName();
+    }
 }

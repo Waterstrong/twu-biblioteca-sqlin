@@ -66,4 +66,9 @@ public class BookService extends ItemService<Book> {
     public String generateItemColumnContent(Book item) {
         return item.getColumnContent();
     }
+
+    @Override
+    protected String getItemDescription(Book item) {
+        return "Book: " + item.getTitle();
+    }
 }

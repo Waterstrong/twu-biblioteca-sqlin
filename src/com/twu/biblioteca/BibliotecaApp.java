@@ -11,16 +11,18 @@ public class BibliotecaApp {
     public static void main(String[] args) {
 
         ConsoleService consoleService = new ConsoleService();
-        consoleService.printMessage("Tips: Predefined User credentials: \n{[\n  {id: 111-1111, pwd: 123456, role: customer },\n  {id: 222-2222, pwd: 123456, role: librarian}\n]}");
+        consoleService.printMessage("Tips: Predefined User credentials: \n{[\n  {id: 111-1111, pwd: 123456, role: CUSTOMER },\n  {id: 222-2222, pwd: 123456, role: LIBRARIAN}\n]}");
         consoleService.showWelcome();
 
         AccountService accountService = new AccountService();
         UserAccount loginUser = accountService.loginByConsole(consoleService, 5);
 
-        if(loginUser != null) {
+        while(loginUser != null) {
             MenuService menuService = LibraryFactory.generateMenuServiceByRole(loginUser.getRole());
             LibraryService libraryService = new LibraryService(loginUser, menuService, consoleService);
             libraryService.run();
+            consoleService.showWelcome();
+            loginUser = accountService.loginByConsole(consoleService, 5);
         }
 
     }

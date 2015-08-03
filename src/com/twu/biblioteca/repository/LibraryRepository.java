@@ -29,9 +29,10 @@ public class LibraryRepository {
         movies.put("M0004", new Movie("M0004", "Escape Plan", "2013", "Jan Mikael", 9));
 
         userAccounts.put("111-1111", new UserAccount("111-1111", "123456", "Waterstrong", "sqlin@thoughtworks.com", "15008180790", Role.CUSTOMER));
-        userAccounts.put("222-2222", new UserAccount("222-2222", "123456", "Wrongkey", "kdhu@thoughtworks.com", "1800000000", Role.LIBRARIAN));
+        userAccounts.put("222-2222", new UserAccount("222-2222", "123456", "Administrator", "admin@thoughtworks.com", "1800000000", Role.LIBRARIAN));
+        userAccounts.put("333-3333", new UserAccount("333-3333", "123456", "Wrongkey", "kdhu@thoughtworks.com", "1800009865", Role.CUSTOMER));
 
-        saveCheckoutBook("B0002", "222-2222");
+        saveCheckoutBook("B0002", "333-3333");
         saveCheckoutMovie("M0002", "111-1111");
     }
 
@@ -70,5 +71,9 @@ public class LibraryRepository {
     public static UserAccount findUserAccount(String userId, String password) {
         UserAccount userAccount = userAccounts.get(userId);
         return (userAccount == null || !userAccount.checkPassword(password)) ? null : userAccount;
+    }
+
+    public static Map<String, UserAccount> getUserAccounts() {
+        return userAccounts;
     }
 }
