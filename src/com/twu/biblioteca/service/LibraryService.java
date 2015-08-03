@@ -21,8 +21,6 @@ public class LibraryService {
 
     public void run() {
         boolean isRunning = true;
-        consoleService.showWelcome();
-        consoleService.printMessage(loginUser.getUserProfile());
         while (isRunning) {
             List<Menu> menus = menuService.listMainMenus();
             consoleService.printMenuPrompt(menus);

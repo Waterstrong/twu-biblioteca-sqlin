@@ -23,10 +23,6 @@ public class UserAccount {
         return userId;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
     public String getName() {
         return name;
     }
@@ -48,5 +44,9 @@ public class UserAccount {
         return "ID: " + getUserId() + split + "Role: " + getRole().name() + split +
                 "Name: " + getName() + split + "Email: " + getEmail() + split +
                 "Phone: " + getPhone();
+    }
+
+    public boolean checkPassword(String password) {
+        return this.password.equals(password);
     }
 }

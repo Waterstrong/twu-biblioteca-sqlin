@@ -69,6 +69,6 @@ public class LibraryRepository {
 
     public static UserAccount findUserAccount(String userId, String password) {
         UserAccount userAccount = userAccounts.get(userId);
-        return (userAccount == null || !userAccount.getPassword().equals(password)) ? null : userAccount;
+        return (userAccount == null || !userAccount.checkPassword(password)) ? null : userAccount;
     }
 }

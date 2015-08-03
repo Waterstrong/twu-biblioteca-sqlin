@@ -2,6 +2,7 @@ package com.twu.biblioteca.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
@@ -48,13 +49,42 @@ public class AccountServiceTest {
     }
 
     @Test
-    public void should_be_able_get_login_user_account_after_login() {
-        accountService.login("111-1111", "123456");
-        UserAccount userAccount = accountService.getLoginUser();
-        assertEquals(userAccount.getUserId(), "111-1111");
-        assertEquals(userAccount.getName(), "Waterstrong");
-        assertEquals(userAccount.getEmail(), "sqlin@thoughtworks.com");
-        assertEquals(userAccount.getPhone(), "15008180790");
-        assertEquals(userAccount.getRole(), Role.CUSTOMER);
+    public void should_be_able_to_login_from_console() {
+        UserAccount loginUser = accountService.loginByConsole(new ConsoleServiceMock(), 1);
+        assertEquals(loginUser.getUserId(), "111-1111");
+        assertEquals(loginUser.getName(), "Waterstrong");
+        assertEquals(loginUser.getEmail(), "sqlin@thoughtworks.com");
+        assertEquals(loginUser.getPhone(), "15008180790");
+        assertEquals(loginUser.getRole(), Role.CUSTOMER);
+    }
+
+    @Test
+    public void should_not_login_from_console_when_attempts_used_out() {
+        UserAccount loginUser = accountService.loginByConsole(new ConsoleServiceMockAgain(), 5);
+        assertNull(loginUser);
+    }
+
+    class ConsoleServiceMock extends ConsoleService {
+        public String inputWithPrompt(String prompt) {
+            if(prompt == "Please input login id: ") {
+                return "111-1111";
+            }
+            if (prompt == "Please input login password: ") {
+                return "123456";
+            }
+            return prompt;
+        }
+
+        public void printMessage(String message) {
+        }
+
+        public void printError(String error) {
+        }
+    }
+
+    class ConsoleServiceMockAgain extends ConsoleServiceMock {
+        public String inputWithPrompt(String prompt) {
+            return prompt;
+        }
     }
 }

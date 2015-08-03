@@ -1,6 +1,7 @@
 package com.twu.biblioteca;
 
 import com.twu.biblioteca.domain.Menu;
+import com.twu.biblioteca.domain.UserAccount;
 import com.twu.biblioteca.enumeration.Action;
 import com.twu.biblioteca.service.AccountService;
 import com.twu.biblioteca.service.BookService;
@@ -15,15 +16,16 @@ public class BibliotecaApp {
     public static void main(String[] args) {
 
         ConsoleService consoleService = new ConsoleService();
+        consoleService.showWelcome();
+
         AccountService accountService = new AccountService();
-        login(accountService, consoleService);
-
-        MenuService menuService = new MenuService();
-        registerMenu(menuService);
-
-        LibraryService libraryService = new LibraryService(accountService.getLoginUser(), menuService, consoleService);
-
-        libraryService.run();
+        UserAccount loginUser = accountService.loginByConsole(consoleService, 5);
+        if(loginUser != null) {
+            MenuService menuService = new MenuService();
+            registerMenu(menuService);
+            LibraryService libraryService = new LibraryService(loginUser, menuService, consoleService);
+            libraryService.run();
+        }
     }
 
     private static void registerMenu(MenuService menuService) {
@@ -37,26 +39,5 @@ public class BibliotecaApp {
         menuService.registerMainMenu(new Menu("Return Movie", Action.RETURN_ITEM), movieService);
         menuService.registerMainMenu(new Menu("My Profile", Action.DISPLAY_PROFILE), null);
         menuService.registerMainMenu(new Menu("Quit", Action.QUIT), null);
-    }
-
-    private static void login(AccountService accountService, ConsoleService consoleService) {
-        boolean isLogin = false;
-        int tryTimes = 5;
-        while (!isLogin) {
-            String loginId = consoleService.inputWithPrompt("Please input login id: ");
-            String password = consoleService.inputWithPrompt("Please input login password: ");
-//            String password = new String(System.console().readPassword());
-            isLogin = accountService.login(loginId, password);
-            if(!isLogin) {
-                consoleService.printError("Login Failed! Please check your id and password.");
-                if(tryTimes <= 0) {
-                    consoleService.printError("=======Try too many! Application Exit!=======");
-                    System.exit(0);
-                }
-                consoleService.inputWithPrompt("");
-                --tryTimes;
-            }
-        }
-        consoleService.printMessage("Login Successfully!");
     }
 }
