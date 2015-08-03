@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 
-import com.twu.biblioteca.domain.Book;
 import com.twu.biblioteca.domain.Menu;
 
 public class ConsoleService {

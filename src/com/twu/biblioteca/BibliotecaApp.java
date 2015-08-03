@@ -45,18 +45,18 @@ public class BibliotecaApp {
         while (!isLogin) {
             String loginId = consoleService.inputWithPrompt("Please input login id: ");
             String password = consoleService.inputWithPrompt("Please input login password: ");
+//            String password = new String(System.console().readPassword());
             isLogin = accountService.login(loginId, password);
-            if(isLogin) {
-                consoleService.printMessage("Login Successfully!");
-            } else {
+            if(!isLogin) {
                 consoleService.printError("Login Failed! Please check your id and password.");
                 if(tryTimes <= 0) {
-                    consoleService.printError("Try too many, application exit!");
+                    consoleService.printError("=======Try too many! Application Exit!=======");
                     System.exit(0);
                 }
                 consoleService.inputWithPrompt("");
+                --tryTimes;
             }
-            --tryTimes;
         }
+        consoleService.printMessage("Login Successfully!");
     }
 }
