@@ -29,7 +29,7 @@ public class LibraryRepository {
         movies.put("M0004", new Movie("M0004", "Escape Plan", "2013", "Jan Mikael", 9));
 
         userAccounts.put("111-1111", new UserAccount("111-1111", "123456", "Waterstrong", "sqlin@thoughtworks.com", "15008180790", Role.CUSTOMER));
-        userAccounts.put("222-2222", new UserAccount("222-2222", "123456", "Wrongkey", "kdhu@thoughtworks.com", "1800000000", Role.CUSTOMER));
+        userAccounts.put("222-2222", new UserAccount("222-2222", "123456", "Wrongkey", "kdhu@thoughtworks.com", "1800000000", Role.LIBRARIAN));
 
         saveCheckoutBook("B0002", "222-2222");
         saveCheckoutMovie("M0002", "111-1111");

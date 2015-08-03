@@ -1,5 +1,5 @@
 package com.twu.biblioteca.enumeration;
 
 public enum Role {
-    CUSTOMER
+    LIBRARIAN, UNDEFINE, CUSTOMER
 }
